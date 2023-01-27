@@ -1,0 +1,5 @@
+name: Page Changed
+description: Listens to any page change events
+core_version_requirement: ^9
+type: module
+package: Ray

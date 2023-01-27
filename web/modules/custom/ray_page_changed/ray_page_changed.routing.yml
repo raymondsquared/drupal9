@@ -1,0 +1,7 @@
+ray_page_changed.page:
+  path: '/page-changed'
+  defaults:
+    _controller: '\Drupal\ray_page_changed\Controller\PageChangedController::page'
+    _title: 'Page Changed'
+  requirements:
+    _permission: 'access content'

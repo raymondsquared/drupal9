@@ -734,5 +734,3 @@ See something that's wrong with this template that needs to be fixed? Something 
 </p>
 
 <br />
-
-TEST
