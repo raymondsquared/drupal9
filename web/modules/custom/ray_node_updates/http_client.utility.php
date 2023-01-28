@@ -4,7 +4,7 @@
 // TO DO: Unit test this class (ideally with TDD with some mocking library)
 class HttpClient {
 
-  // Publish data function accepts a URL and a data
+  // Publish data function accepts a URL and the data
   // it will then encode the data as a JSON and do a POST request to the given URL
   public static function post($url, $data) {
     $status_code = 0;
@@ -17,7 +17,10 @@ class HttpClient {
     try {
       $curl = curl_init($url);
       $headers  = [
-        'Content-Type: application/json'
+        'Content-Type: application/json',
+        // FIX ME: Ideally read this from key management vault 
+        // or even environment variable is a better option
+        "x-api-key: uuid-1-2-3",
       ];
 
       curl_setopt($curl, CURLOPT_URL, $url);
