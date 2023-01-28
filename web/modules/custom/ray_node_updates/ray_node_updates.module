@@ -9,9 +9,23 @@ function ray_node_updates_node_update($node) {
   
   $post_data = new stdClass();
   $post_data->title = $node->getTitle();
-  $post_data->body = $node->body->value;;
-  
-  HttpClient::post($webhook_consumer_url, $post_data);
+  $post_data->body = $node->body->value;
+
+
+  // Simple circuit breaker data function accepts a function and optional max retry (default is 3)
+  // it will then try to invoke the method x number of times after some delay
+  $max_retry = 3;
+  $retry_sleep_multiplication_in_seconds = 5;
+
+  try {
+    for ($counter = 0; $counter < $max_retry; $counter++) {
+      sleep($counter * $retry_sleep_multiplication_in_seconds);
+
+      return HttpClient::post($webhook_consumer_url, $post_data);
+    } 
+  } catch (Exception $e) {
+    echo 'Caught exception: ', $e->getMessage(), "\n";
+  }
 }
 
 ?>
