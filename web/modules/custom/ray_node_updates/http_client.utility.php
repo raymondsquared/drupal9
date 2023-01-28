@@ -1,11 +1,18 @@
 <?php
 
+
+// TO DO: Unit test this class (ideally with TDD with some mocking library)
 class HttpClient {
 
   // Publish data function accepts a URL and a data
   // it will then encode the data as a JSON and do a POST request to the given URL
   public static function post($url, $data) {
-    $statusCode = 0;
+    $status_code = 0;
+
+    if(empty($url) || empty($data)) {
+      $status_code = 400;
+      return $status_code;
+    }
 
     try {
       $curl = curl_init($url);
@@ -20,13 +27,13 @@ class HttpClient {
       curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 
       $result     = curl_exec ($curl);
-      $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+      $status_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
     } catch (Exception $e) {
       echo 'Caught exception: ', $e->getMessage(), "\n";
-      $statusCode = 500;
+      $status_code = 500;
     }
 
-    return $statusCode;
+    return $status_code;
   } 
 }
 

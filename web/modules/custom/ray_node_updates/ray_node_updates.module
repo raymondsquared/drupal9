@@ -11,9 +11,12 @@ function ray_node_updates_node_update($node) {
   $post_data->title = $node->getTitle();
   $post_data->body = $node->body->value;
 
-
   // Simple circuit breaker data function accepts a function and optional max retry (default is 3)
   // it will then try to invoke the method x number of times after some delay
+  // 
+  // TO DO: Move this method into it's own common utility class
+  // TO DO: Unit test this (Ideally with TDD)
+  // 
   $max_retry = 3;
   $retry_sleep_multiplication_in_seconds = 5;
 
