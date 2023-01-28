@@ -1,0 +1,17 @@
+<?php
+
+require __DIR__ . '/http_client.utility.php';
+
+use Drupal\Core\Entity\EntityInterface;
+
+function ray_node_updates_node_update($node) { 
+  $webhook_consumer_url = getenv('WEBHOOK_CONSUMER_URL', true) ?: getenv('WEBHOOK_CONSUMER_URL');
+  
+  $post_data = new stdClass();
+  $post_data->title = $node->getTitle();
+  $post_data->body = $node->body->value;;
+  
+  HttpClient::post($webhook_consumer_url, $post_data);
+}
+
+?>
